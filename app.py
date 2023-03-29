@@ -1,12 +1,9 @@
 import streamlit as st
 import pickle
 import smtplib, ssl
-# import pygeoip
-# import socket
 import re
 from PIL import Image
 
-# gi = pygeoip.GeoIP('GeoIP.dat')
 model = pickle.load(open('spam.pkl','rb'))
 cv=pickle.load(open('vectorizer.pkl','rb'))
 
@@ -46,15 +43,13 @@ def main():
         if result==1:
             st.error("This is a spam mail.")
             st.error("Doesn't send spam email.")
-            #speak("This is a spam email")
         elif msg.isspace():
             st.error("The mail contains only splaces enter a proper mail/message.")
         elif msg=="":
             st.error("You can't leave the 'Message' box blank please enter a proper mail/message.")
 
         else:
-            st.success("This is a ham mail")
-            #speak("This is not a spam email")
+            st.success("This is a harmful mail")
             context = ssl.create_default_context()
             with smtplib.SMTP(smtp_server, port) as server:
                 if (check(receiver_email)==True):
@@ -69,26 +64,4 @@ def main():
                         st.error("Senders' email id or password is not valid please put a valid email id and the respective App Password of senders' email.")
                 else:
                     st.error("Enter a valid receivers' email id.")
-            # except socket.gaierror:
-            #     st.error("Connection Interrupted! Please check your internet connectivity.")
 main()
-
-# Import modules
-# import smtplib, ssl
-# port = 587  # For starttls
-# smtp_server = "smtp.gmail.com"
-# sender_email = "banerjeeofficial21@gmail.com"
-# receiver_email = input("Type the mail id of the receiver: ")
-# name = input("Put the receiver's name : ")
-# m = input("Enter the message: ")
-# password = 'hcidbztwrbsohjti'
-# message = f"""\
-# Subject: Hi {name}
-# {m}."""
-# context = ssl.create_default_context()
-# with smtplib.SMTP(smtp_server, port) as server:
-#     server.ehlo()
-#     server.starttls(context=context)
-#     server.ehlo()
-#     server.login(sender_email, password)
-#     server.sendmail(sender_email, receiver_email, message)
