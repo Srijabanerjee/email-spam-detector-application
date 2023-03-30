@@ -49,7 +49,7 @@ def main():
             st.error("You can't leave the 'Message' box blank please enter a proper mail/message.")
 
         else:
-            st.success("This is a harmful mail")
+            st.success("This is not a spam mail")
             context = ssl.create_default_context()
             with smtplib.SMTP(smtp_server, port) as server:
                 if (check(receiver_email)==True):
